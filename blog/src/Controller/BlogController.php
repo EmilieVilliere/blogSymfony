@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -65,23 +66,28 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/category/{categoryName}",
+     * @Route("/blog/category/{name}",
      *     name="show_category")
-     * @param string $categoryName
+     * ParamConverter("category", class="App\Entity\Category", options={"name" = "categoryName"})
      * @return Response
      */
-    public function showByCategory(string $categoryName) : Response
+
+    /*@param string $categoryName*/
+
+    public function showByCategory(Category $category) : Response
     {
-        if (!$categoryName) {
+        if (!$category) {
             throw $this
                 ->createNotFoundException('No slug has been sent to find an article in article\'s table.');
         }
 
-        $category = $this->getDoctrine()
+        /*$category = $this->getDoctrine()
             ->getRepository(Category::class)
-            ->findOneby(['name' => $categoryName]);
+            ->findOneby(['name' => $category]);*/
 
         $articles = $category->getArticles();
+        $name = $category->getName();
+
 
         /*$articles = $this->getDoctrine()
             ->getRepository(Article::class)
@@ -91,7 +97,8 @@ class BlogController extends AbstractController
         return $this->render(
             'blog/category.html.twig',
             [
-                'articles' => $articles
+                'articles' => $articles,
+                'name' => $name
             ]);
     }
 }
