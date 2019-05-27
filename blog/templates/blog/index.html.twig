@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}All articles{% endblock %}
+
+{% block body %}
+      <main>
+            {{ form_start(form) }}
+                  {{ form_row(form.searchField) }}
+                  <button class type="submit" name="btnSearch">Rechercher</button>
+            {{ form_end(form) }}
+
+            <h1>Tous mes articles ici</h1>
+
+            <section>
+                  {% for article in articles %}
+                        <div>
+                              <h2>{{ loop.index }} / {{ article.title }} - Category : {{ article.category.name }}</h2>
+                              <p>{{ article.content }}</p>
+                        </div>
+                  {% else %}
+                        Aucun article trouvé.
+                  {% endfor %}
+            </section>
+            <a href="{{ path('app_index') }}">Back to homepage.</a>
+      </main>
+{% endblock %}

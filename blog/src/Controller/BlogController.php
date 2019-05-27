@@ -4,19 +4,35 @@
 namespace App\Controller;
 
 
+use App\Form\ArticleSearchType;
 use App\Entity\Article;
 use App\Entity\Category;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class BlogController extends AbstractController
 {
     /**
+     * Show my home page
+     *
+     * @Route("/", name="home")
+     * @return Response A response instance
+     */
+    public function myHome(): Response
+    {
+        return $this->render(
+            'blog.html.twig',
+            []);
+    }
+
+
+    /**
      * Show all row from article's entity
      *
-     * @Route("/", name="index")
+     * @Route("/blog/", name="index")
      * @return Response A response instance
      */
     public function index(): Response
@@ -25,16 +41,27 @@ class BlogController extends AbstractController
             ->getRepository(Article::class)
             ->findAll();
 
-        return $this->render('index.html.twig',
-            ['articles' => $articles]
+        $form = $this->createForm(
+            ArticleSearchType::class,
+            null,
+            ['method' => Request::METHOD_GET]
+        );
+
+        return $this->render(
+            'blog/index.html.twig',
+            [
+                'articles' => $articles,
+                'form' => $form->createView(),
+            ]
         );
     }
+
 
     /**
      * Getting a article with a formatted slug for title
      *
      * @param string $slug The slugger
-     * @Route("/{slug<^[a-z0-9-]+$>}",
+     * @Route("/blog/show/{slug<^[a-z0-9-]+$>}",
      *     defaults={"slug" = null},
      *     name="blog_show")
      * @return Response A response instance
@@ -57,7 +84,7 @@ class BlogController extends AbstractController
 
 
         return $this->render(
-            'show.html.twig',
+            'blog/article.html.twig',
             [
                 'article' => $article,
                 'slug' => $slug,

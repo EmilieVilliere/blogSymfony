@@ -1,7 +1,10 @@
 {% extends "base.html.twig" %}
+
+    {% block title %}{{ slug }}{% endblock %}
+
       {% block body %}
           <main>
-              <h1>{{ slug }}</h1>
+
               <div>
                   <h1>Real article s title : {{ article.title }}</h1>
                   <h2>Category : {{ article.category.name }}</h2>
