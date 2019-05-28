@@ -3,14 +3,28 @@
 body {
     background-color: white;
 }
+
 h1 {
   text-align: center;
-  margin-bottom: 3rem;
-  font-size: 3em;
+  margin-top: 15rem;
 }
+
 h2 {
-  margin: 2rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 35px;
 }
+
+h3 {
+  margin: 3rem;
+  font-size: 20px;
+}
+
+p {
+  margin-left: 4rem;
+  font-size: 10px;
+}
+
 section {
-  margin-left: 50vh;
+  margin-left: 60vh;
 }

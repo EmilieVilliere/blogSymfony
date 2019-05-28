@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+      {% block body %}
+          <main>
+
+              <h2>Ajoute ta catégorie toi-même !</h2>
+
+                <section>
+                    {{ form_start(form) }}
+                        <button class type="submit" name="btnSearch">Save</button>
+                    {{ form_end(form) }}
+                </section>
+
+              <a href="{{ path('app_index') }}">
+                  Back to homepage.
+              </a>
+
+          </main>
+      {% endblock %}
