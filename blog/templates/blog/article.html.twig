@@ -4,12 +4,20 @@
 
       {% block body %}
           <main>
-
               <div>
                   <h1>Real article s title : {{ article.title }}</h1>
                   <h2>Category : {{ article.category.name }}</h2>
                   <p>{{ article.content }}</p>
               </div>
+
+              <strong>Tags :</strong>
+              <ul>
+                  {% for tag in article.tags %}
+                      <li>{{ tag.name }} </li>
+                  {% else %}
+                      <li>No tags for this article</li>
+                  {% endfor %}
+              </ul>
 
               <a href="{{ path('app_index') }}">
                   Back to homepage.
